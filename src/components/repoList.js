@@ -13,10 +13,12 @@ function RepoList({search}){
     }
 
     const repoObject = useMemo(()=>{ 
-        if(search.data){
+        if(search.data && selectedRowId.length > 0){
             var repo = search.data.items.filter((repo)=>selectedRowId == repo.id)
+            return repo[0]
+        } else { 
+            return false
         }
-        return repo[0]
     }, [selectedRowId])
 
     useEffect(()=>{ 
@@ -94,7 +96,7 @@ function RepoList({search}){
                 }
             </div>
             <div>
-                <RepoDetails repo = {repoObject} />
+                {repoObject && <RepoDetails repo={repoObject} /> } 
             </div>
         </div>
 

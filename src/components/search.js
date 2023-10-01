@@ -6,16 +6,13 @@ import RepoList from "./repoList";
 
 
 
-// this component supports searching 
-// the output is we are looking to find a single repository 
-// most of the if we can search by user and/or repository name we should be able to find the repo 
 function Search() { 
 
     const [userInput, setUserInput]= useState("")
     const [repoInput, setRepoInput] = useState("")
     const search = useOcto()
 
-    const searchGithub = useCallback(()=>{
+    const searchGithub = useCallback(()=>{ 
         const qString = `${repoInput} in:name user:${userInput} ` 
         const searchOptions = { 
           headers: {

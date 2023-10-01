@@ -19,7 +19,7 @@ node 18 (node 18.16 on my system)
 5. Save the env file  
 6. Open a command prompt 
    ```sh
-   $ npm start
+   $ npm install && npm start
    ```
 
 ## Usage 

@@ -1,13 +1,13 @@
 import { useMemo, useState } from "react";
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
-import { RepoDetails} from "./repoDetails"
+import  RepoDetails from "./repoDetails"
 
 
 function RepoList({search}){ 
 
     const [selectedRow, setSelectedRow] = useState([])
 
-    handleRowSelect = (e) => { 
+    const handleRowSelect = (e) => { 
         setSelectedRow(e.selectionModel)
     }
 

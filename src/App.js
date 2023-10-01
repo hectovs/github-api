@@ -8,10 +8,8 @@ function App() {
   const auth = useOcto("/user")
 
   useEffect(()=>{ 
-    auth.request()
-    
+    auth.request()  
   },  [])
-
 
   return (
     <div className="App">

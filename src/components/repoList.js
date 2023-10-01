@@ -1,15 +1,27 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
 import  RepoDetails from "./repoDetails"
 
 
 function RepoList({search}){ 
 
-    const [selectedRow, setSelectedRow] = useState([])
+    const [selectedRowId, setSelectedRowId] = useState([])
 
     const handleRowSelect = (e) => { 
-        setSelectedRow(e.selectionModel)
+        console.log(e)
+        setSelectedRowId(e)
     }
+
+    const repoObject = useMemo(()=>{ 
+        if(search.data){
+            var repo = search.data.items.filter((repo)=>selectedRowId == repo.id)
+        }
+        return repo[0]
+    }, [selectedRowId])
+
+    useEffect(()=>{ 
+        console.log(repoObject)
+    },[repoObject])
 
     const [columns, setColumns] = useState([
         {
@@ -26,7 +38,6 @@ function RepoList({search}){
             field: "html_url",
             headerName: "Link",
             renderCell: (params) => { 
-                console.log(params)
                 return( 
                     <a href={params.value} >Link to Github</a>
                 )
@@ -54,9 +65,6 @@ function RepoList({search}){
         }
     }, [search]) 
     
-
-
-
     return( 
         <div>
             <div>
@@ -86,7 +94,7 @@ function RepoList({search}){
                 }
             </div>
             <div>
-                <RepoDetails/>
+                <RepoDetails repo = {repoObject} />
             </div>
         </div>
 

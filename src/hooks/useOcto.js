@@ -1,17 +1,18 @@
 import {useState } from "react"
 import { Octokit } from "@octokit/core"
 
-export default function useOcto(apiCall) { 
+export default function useOcto(uri, options) { 
     const [data, setData] = useState(null)
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
 
-    const request = async (apiCall) => { 
+    const request = async () => { 
         const patToken = process.env.REACT_APP_GITHUB_PAT
         const octokit = new Octokit({auth:`${patToken}`})
         setLoading(true)
         try{ 
-            const res = await octokit.request(apiCall)
+            console.log(uri, options)
+            const res = await octokit.request(uri, options)
             setData(res.data)
         } catch (err) { 
             setError(err.message || "unexpected error")

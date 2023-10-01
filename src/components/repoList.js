@@ -1,8 +1,15 @@
 import { useMemo, useState } from "react";
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import { RepoDetails} from "./repoDetails"
 
 
 function RepoList({search}){ 
+
+    const [selectedRow, setSelectedRow] = useState([])
+
+    handleRowSelect = (e) => { 
+        setSelectedRow(e.selectionModel)
+    }
 
     const [columns, setColumns] = useState([
         {
@@ -52,30 +59,37 @@ function RepoList({search}){
 
     return( 
         <div>
-            {
-                search.loading &&
-                <p>Awaiting results from github</p>
-            }
-            {
-                search.error &&
-                <p>Github API error you may have hit your search API limit</p>
-            }
-            {
-                columns && rows &&
-                <DataGrid
-                    rows = {rows}
-                    columns={columns}
-                    initialState={{
-                        pagination: {
-                          paginationModel: {
-                            pageSize: 5,
-                          },
-                        },
-                      }}
-                    pageSizeOptions={[5]}
-                />   
-            }
+            <div>
+                {
+                    search.loading &&
+                    <p>Awaiting results from github</p>
+                }
+                {
+                    search.error && search.data == "undefined" &&
+                    <p>Github API error you may have hit your search API limit</p>
+                }
+                {
+                    columns && rows &&
+                    <DataGrid
+                        rows = {rows}
+                        columns={columns}
+                        initialState={{
+                            pagination: {
+                            paginationModel: {
+                                pageSize: 5,
+                            },
+                            },
+                        }}
+                        pageSizeOptions={[5]}
+                        onRowSelectionModelChange={handleRowSelect}
+                    />   
+                }
+            </div>
+            <div>
+                <RepoDetails/>
+            </div>
         </div>
+
     )
 }
 

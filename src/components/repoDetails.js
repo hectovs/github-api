@@ -35,13 +35,14 @@ function RepoDetails({repo}){
             <h1>Selected Repository Details</h1>
             <Card>
                 <CardHeader
-                  title="Detailed Repository view"
+                  title={repo.name}
                   subheader="includes README.md"
                 />
                 <CardContent>
                     <p>stars: {repo.stargazers_count}</p>
                     <p>issues: {repo.open_issues} </p>
                     <p>forks: {repo.forks_count}</p>
+                    <h1>README.md</h1>
                     <Markdown>
                         {decodedMd}
                     </Markdown>

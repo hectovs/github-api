@@ -11,7 +11,6 @@ export default function useOcto() {
         const octokit = new Octokit({auth:`${patToken}`})
         setLoading(true)
         try{ 
-            console.log(uri, options)
             const res = await octokit.request(uri, options)
             setData(res.data)
         } catch (err) { 

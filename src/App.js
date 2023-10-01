@@ -23,14 +23,9 @@ function App() {
   const auth = useOcto()
 
   useEffect(()=>{ 
-    console.log(qString)
     auth.request("/user", options)
     search.request("GET /search/repositories?q={q}", searchOptions)  
   },  [])
-
-  useEffect(()=>{ 
-    console.log(search.data)
-  }, [search])
 
   return (
     <div className="App">
@@ -38,7 +33,7 @@ function App() {
         <h1> Status</h1>
         { auth.loading && <p> awaiting response !</p> }
         { auth.error && <p> API error</p>}
-        { auth.data && <p>The personal access token provided is correct</p>}
+        { auth.data && <p>The personal access token provided authenticates successfully</p>}
       </div>
       <div>
         <Search/>

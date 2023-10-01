@@ -3,6 +3,7 @@ import './App.css';
 import { Octokit } from "@octokit/core"
 import { useEffect } from 'react';
 import useOcto from './hooks/useOcto';
+import Search from './components/search';
 
 function App() {
   const options = {
@@ -18,13 +19,13 @@ function App() {
     q: qString
   }
 
-  const search = useOcto("GET /search/repositories?q={q}", searchOptions)
-  const auth = useOcto("/user", options)
+  const search = useOcto()
+  const auth = useOcto()
 
   useEffect(()=>{ 
     console.log(qString)
-    auth.request()
-    search.request()  
+    auth.request("/user", options)
+    search.request("GET /search/repositories?q={q}", searchOptions)  
   },  [])
 
   useEffect(()=>{ 
@@ -37,17 +38,10 @@ function App() {
         <h1> Status</h1>
         { auth.loading && <p> awaiting response !</p> }
         { auth.error && <p> API error</p>}
-        { auth.data && <p> there is data</p>}
+        { auth.data && <p>The personal access token provided is correct</p>}
       </div>
       <div>
-        <h1> Searching for this repository </h1>
-        {search.data && search.data.items.map((item) => { 
-          return(
-          <a href={item.html_url}>
-            this repo
-          </a>
-          )
-        })}
+        <Search/>
       </div>
     </div>
   );

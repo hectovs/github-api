@@ -1,12 +1,12 @@
 import {useState } from "react"
 import { Octokit } from "@octokit/core"
 
-export default function useOcto(uri, options) { 
+export default function useOcto() { 
     const [data, setData] = useState(null)
     const [error, setError] = useState("")
     const [loading, setLoading] = useState(false)
 
-    const request = async () => { 
+    const request = async (uri, options) => { 
         const patToken = process.env.REACT_APP_GITHUB_PAT
         const octokit = new Octokit({auth:`${patToken}`})
         setLoading(true)

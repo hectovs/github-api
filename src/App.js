@@ -2,28 +2,25 @@ import logo from './logo.svg';
 import './App.css';
 import { Octokit } from "@octokit/core"
 import { useEffect } from 'react';
+import useOcto from './hooks/useOcto';
 
 function App() {
+  const auth = useOcto("/user")
 
-  
-  useEffect(()=>{
-    const patToken = process.env.REACT_APP_GITHUB_PAT
-    const octokit = new Octokit({auth:`${patToken}`})
+  useEffect(()=>{ 
+    auth.request()
     
-    const getUser = async ()=>{ 
-      console.log(patToken)
-      const {data} = await octokit.request("/user")
-      console.log(data)
-    }
-
-    getUser()
-  }
-  ,[])
+  },  [])
 
 
   return (
     <div className="App">
-
+      <div>
+        <h1> Status</h1>
+        { auth.loading && <p> Posts are loading !</p> }
+        { auth.error && <p> API error</p>}
+        { auth.data && <p> there is data</p>}
+      </div>
     </div>
   );
 }

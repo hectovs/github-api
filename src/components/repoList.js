@@ -8,7 +8,6 @@ function RepoList({search}){
     const [selectedRowId, setSelectedRowId] = useState([])
 
     const handleRowSelect = (e) => { 
-        console.log(e)
         setSelectedRowId(e)
     }
 
@@ -20,10 +19,6 @@ function RepoList({search}){
             return false
         }
     }, [selectedRowId])
-
-    useEffect(()=>{ 
-        console.log(repoObject)
-    },[repoObject])
 
     const [columns, setColumns] = useState([
         {
@@ -50,7 +45,6 @@ function RepoList({search}){
 
     const rows = useMemo(()=>{
         if(search.data){
-            console.log(search.data)
             const remakeRows = search.data.items.map((repo)=>{
                 return(
                     {

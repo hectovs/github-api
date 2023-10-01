@@ -10,6 +10,7 @@ function RepoDetails({repo}){
     const [decodedMd, setDecodedMd] = useState("")
 
     useEffect(()=>{ 
+        setDecodedMd("")
         const options = { 
             "headers": {
                 'X-GitHub-Api-Version': '2022-11-28'
@@ -19,8 +20,6 @@ function RepoDetails({repo}){
             "owner": repo.owner.login 
         }
         markdownContent.request('GET /repos/{owner}/{repo}/contents/{path}', options)
-
-
     }, [repo])
 
     useEffect(()=>{
